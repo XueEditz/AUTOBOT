@@ -1,0 +1,229 @@
+body {
+     padding: 30px;
+     background-color: #f5f5;
+     font-family: 'Poppins', sans-serif;
+}
+ .container {
+     background-image: linear-gradient(45deg, #800080 0%,  #E90207 46%,  #ff8c00 100%);
+     border-radius: 10px;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     padding: 20px;
+     margin-top: 20px;
+     margin-bottom: 20px;
+}
+ h1 {
+     color: #FFF;
+     font-size: 24px;
+     margin-bottom: 15px;
+}
+ label {
+     background-color: #FFFFFF;
+     color: #405057;
+     font-weight: bold;
+     margin-bottom: 5px;
+}
+ .centered-textarea {
+     color: #FFFF;
+     display: flex;
+     margin: 0 auto;
+     width: 100%;
+     min-height: 150px;
+     padding: 10px;
+     box-sizing: border-box;
+     border: 1px solid #00ffff;
+     border-radius: 5px;
+     resize: none;
+}
+ .btn-primary {
+     background-color: #007bff;
+     border: 1px solid #007bff;
+}
+ .btn-primary:hover {
+     background-color: #0056b3;
+     border: 1px solid #0056b3;
+}
+ .success-message {
+     color: green;
+     margin-top: 10px;
+}
+ .footer {
+     background-color: #E90207 46%,  #ff8c00 100%;
+     padding: 10px;
+     text-align: center;
+     font-size: 16px;
+     color: #FFF;
+     margin-top: 50px;
+     border-top: 1px solid #blue;
+     position: fixed;
+     bottom: 0;
+     left: 0;
+     width: 100%;
+}
+ .footer p {
+     margin: 0;
+     display: inline-block;
+     margin-right: 30px;
+}
+ .container-buttons {
+     margin-top: 20px;
+     text-align: center;
+}
+ .container-buttons .btn {
+     margin: 5px;
+}
+
+ #result {
+     padding: 10px;
+     margin-top: 20px;
+     border-radius: 5px;
+}
+ .center-placeholder::placeholder {
+     text-align: center;
+}
+
+.form-check {
+  display: flex;
+  margin-top: 10px;
+  padding: 14px;
+  align-items: center;
+  border: 1px solid #red;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease; 
+  border-color: #ccc;
+  background-color: #fff;
+}
+
+.form-check:hover {
+  background-color: #f5f5; 
+  border-color: #f8f8f8; 
+}
+
+.form-check-input {
+  margin-right: 10px; 
+  opacity: 0;
+}
+
+.disable {
+  display: none;
+}
+
+#inputOfPrefix, #inputOfAdmin {
+  padding: 13px;
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease; 
+  border-color: #ccc;
+  background-color: #fff;
+}
+#listOfCommands, #listOfCommandsEvent, #prefixOfCommands, #adminOfCommands {
+  border: none !important;
+}
+
+#listOfCommands:not(.modal), #listOfCommandsEvent:not(.modal), #prefixOfCommands:not(.modal), #adminOfCommands:not(.modal) {
+  box-shadow: none !important;
+}
+
+				video {
+						width: 100%;
+						height: 100%;
+						object-fit: cover;
+		}
+		.glass {
+								position: absolute;
+								top: 0;
+								left: 0;
+								width: 100%;
+								height: 100%;
+								overflow: hidden;
+						}
+						.glass li {
+								position: absolute;
+								display: block;
+								list-style: none;
+								width: 20px;
+								height: 20px;
+								background: rgba(255, 255, 255, 0.1);
+								border: 1px solid rgba(255, 255, 255, 0.18);
+								animation: spin 5s linear infinite;
+								bottom: -150px;
+						}
+						.glass li:nth-child(1) {
+								left: 35%;
+								width: 150px;
+								height: 150px;
+								animation-delay: 0s;
+						}
+						.glass li:nth-child(2) {
+								left: 10%;
+								width: 20px;
+								height: 20px;
+								animation-delay: 2s;
+								animation-duration: 12s;
+						}
+						.glass li:nth-child(3) {
+								left: 70%;
+								width: 20px;
+								height: 20px;
+								animation-delay: 4s;
+						}
+						.glass li:nth-child(4) {
+								left: 40%;
+								width: 60px;
+								height: 60px;
+								animation-delay: 0s;
+								animation-duration: 18s;
+						}
+						.glass li:nth-child(5) {
+								left: 65%;
+								width: 20px;
+								height: 20px;
+								animation-delay: 0s;
+						}
+						.glass li:nth-child(6) {
+								left: 75%;
+								width: 110px;
+								height: 110px;
+								animation-delay: 3s;
+						}
+						.glass li:nth-child(7) {
+								left: 35%;
+								width: 150px;
+								height: 150px;
+								animation-delay: 7s;
+						}
+						.glass li:nth-child(8) {
+								left: 50%;
+								width: 25px;
+								height: 25px;
+								animation-delay: 15s;
+								animation-duration: 45s;
+						}
+						.glass li:nth-child(9) {
+								left: 20%;
+								width: 15px;
+								height: 15px;
+								animation-delay: 2s;
+								animation-duration: 35s;
+						}
+						.glass li:nth-child(10) {
+								left: 85%;
+								width: 150px;
+								height: 150px;
+								animation-delay: 0s;
+								animation-duration: 11s;
+						}
+						@keyframes spin {
+								0% {
+										transform: translateY(0) rotate(0deg);
+										opacity: 1;
+										border-radius: 0;
+								}
+								100% {
+										transform: translateY(-1000px) rotate(720deg);
+										opacity: 0;
+										border-radius: 50%;
+        }
+       
