@@ -4,6 +4,7 @@ module.exports.config = {
 	role: 0,
 	credits: "𝙰𝚒𝚗𝚣",
 	aliases: ["tikdl"]
+};
 
 module.exports.run = async ({ api, event, args, Users }) => {
 	const axios = require("axios");
