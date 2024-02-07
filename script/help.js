@@ -1,52 +1,75 @@
-const fs = require('fs');
-const path = require('path');
-
 module.exports.config = {
- name: "help",
- credits: "cliff",
-  version: '1.0.0',
-  role: 0,
-  aliases: ['']
+	name: 'help',
+	version: '1.0.0',
+	role: 0,
+	aliases: ['info']
 };
-
-module.exports.run = async ({ api, event }) => {
- const commandsPath = path.join(__dirname, '..', 'commands');
-
- try {
-  const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
-
-  if (commandFiles.length === 0) {
-   api.sendMessage("There are no commands available.", event.threadID);
-   return;
-  }
-
-  const categories = {};
-  let totalCommandList = 0; // Added to keep track of the total number of commands
-
-  commandFiles.forEach(file => {
-   const commandName = path.basename(file, '.js');
-   const filePath = path.join(commandsPath, file);
-   const commandModule = require(filePath);
-   const commandConfig = commandModule.config;
-
-   if (!categories[commandConfig.commandCategory]) {
-    categories[commandConfig.commandCategory] = [];
-   }
-
-   categories[commandConfig.commandCategory].push(commandConfig.name);
-   totalCommandList++; // Increment totalCommandList for each command
-  });
-
-  let message = '';
-  for (const category in categories) {
-   const commandList = categories[category].map(command => `.${command}`).join(' │');
-   message += `╭────────────❍\n│  ${category}\n├───✦\n│${commandList}\n├───✦\n╰───────────⧕\n\n`;
-  }
-
-  message += `╭────────────❍\n│ » ${global.config.BOTNAME} has ${totalCommandList} cmds\n│ » Type .help <cmd>\n│ to show the command information\n╰────────────❍`;
-  api.sendMessage(message, event.threadID);    
- } catch (error) {
-  console.error('Error listing commands:', error);
-  api.sendMessage("An error occurred while listing commands.", event.threadID);
- }
+module.exports.run = async function({
+	api,
+	event,
+	enableCommands,
+	args,
+	Utils,
+	prefix
+}) {
+	const input = args.join(' ');
+	try {
+		const eventCommands = enableCommands[1].handleEvent;
+		const commands = enableCommands[0].commands;
+		if (!input) {
+			const pages = 20;
+			let page = 1;
+			let start = (page - 1) * pages;
+			let end = start + pages;
+			let helpMessage = `Command List:\n\n`;
+			for (let i = start; i < Math.min(end, commands.length); i++) {
+				helpMessage += `\t${i + 1}. 「 ${prefix}${commands[i]} 」\n`;
+			}
+			helpMessage += '\nEvent List:\n\n';
+			eventCommands.forEach((eventCommand, index) => {
+				helpMessage += `\t${index + 1}. 「 ${prefix}${eventCommand} 」\n`;
+			});
+			helpMessage += `\nPage ${page}/${Math.ceil(commands.length / pages)}. To view the next page, type '${prefix}help page number'. To view information about a specific command, type '${prefix}help command name'.`;
+			api.sendMessage(helpMessage, event.threadID, event.messageID);
+		} else if (!isNaN(input)) {
+			const page = parseInt(input);
+			const pages = 20;
+			let start = (page - 1) * pages;
+			let end = start + pages;
+			let helpMessage = `Command List:\n\n`;
+			for (let i = start; i < Math.min(end, commands.length); i++) {
+				helpMessage += `\t${i + 1}. 「 ${prefix}${commands[i]} 」\n`;
+			}
+			helpMessage += '\nEvent List:\n\n';
+			eventCommands.forEach((eventCommand, index) => {
+				helpMessage += `\t${index + 1}. 「 ${prefix}${eventCommand} 」\n`;
+			});
+			helpMessage += `\nPage ${page} of ${Math.ceil(commands.length / pages)}`;
+			api.sendMessage(helpMessage, event.threadID, event.messageID);
+		} else {
+			const command = [...Utils.handleEvent, ...Utils.commands].find(([key]) => key.includes(input?.toLowerCase()))?.[1];
+			if (command) {
+				const {
+					name,
+					version,
+					role,
+					aliases = [],
+					description,
+					usage,
+					credits
+				} = command;
+				const roleMessage = role !== undefined ? (role === 0 ? 'Permission: User' : 'Permission: Admin') : '';
+				const aliasesMessage = aliases.length ? `Aliases: ${aliases.join(', ')}\n` : '';
+				const descriptionMessage = description ? `Description: ${description}\n` : '';
+				const usageMessage = usage ? `Usage: ${usage}\n` : '';
+				const creditsMessage = credits ? `Credits: ${credits}\n` : '';
+				const message = `Name: ${name}\nVersion: ${version}\n${roleMessage}\n${aliasesMessage}${descriptionMessage}${usageMessage}${creditsMessage}`;
+				api.sendMessage(message, event.threadID, event.messageID);
+			} else {
+				api.sendMessage('Command not found.', event.threadID, event.messageID);
+			}
+		}
+	} catch (error) {
+		console.log(error);
+	}
 };
