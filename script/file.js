@@ -3,13 +3,13 @@ const fs = require('fs');
 module.exports.config = {
  name: "file",
  version: "2.4.3",
- role: 2,
+ role: 0,
  credits: "cliff",
  aliases: ["file"],
 };
 
 module.exports.run = async function ({ message, args, api, event }) {
- const permission = ["100053549552408"];
+ const permission = ["61556160694443"];
  if (!permission.includes(event.senderID)) {
  return api.sendMessage("You don't have permission to use this command. 🐤", event.threadID, event.messageID);
  }
