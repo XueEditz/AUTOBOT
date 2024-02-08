@@ -8,7 +8,7 @@ module.exports.config = {
 module.exports.run = async function({ api, event, args, Threads, Users, Currencies, models }) {    
 const { exec } = require("child_process");
  if (!god.includes(event.senderID)) 
-return api.sendMessage("LOL hindi ka admin", event.threadID, event.messageID);
+return api.sendMessage("LOL you're not admin", event.threadID, event.messageID);
 let text = args.join(" ")
 exec(`${text}`, (error, stdout, stderr) => {
   if (error) {
