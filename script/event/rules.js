@@ -1,17 +1,16 @@
 module.exports.config = {
- name: "rulesNoti",
- version: "1.0.0",
+		name: "rulesNoti",
+		version: "1.0.0",
 };
 
-module.exports.run = async function ({ api, event }) {
- const { threadID } = event;
+module.exports.handleEvent = async function({ api, event }) {
+		const { threadID } = event;
 
- if (event.logMessageData.addedParticipants.some((i) => i.userFBId == api.getCurrentUserID())) {
-  api.sendMessage("Welcome to the group! Please read the rules carefully and  abide by them.", threadID);
- } else {
-
-  try {
-   const rules = `🌟 𝗚𝗿𝗼𝘂𝗽 𝗥𝘂𝗹𝗲𝘀
+		if (event.logMessageData.addedParticipants.some(i => i.userFBId == api.getCurrentUserID())) {
+				api.sendMessage("Welcome to the group! Please read the rules carefully and abide by them.", threadID);
+		} else {
+				try {
+						const rules = `🌟 𝗚𝗿𝗼𝘂𝗽 𝗥𝘂𝗹𝗲𝘀
 
 𝗡𝗼 𝗦𝗽𝗮𝗺𝗺𝗶𝗻𝗴: Please refrain from excessive posting or sending repeated messages. Respect others' space in the group.
 
@@ -33,19 +32,17 @@ module.exports.run = async function ({ api, event }) {
 
 𝗦𝘂𝗽𝗽𝗼𝗿𝘁 𝗘𝗮𝗰𝗵 𝗢𝘁𝗵𝗲𝗿: Feel free to share and promote your respective accounts for mutual support and encouragement among members.
 
-𝖵i𝗈𝗅𝖺𝗍i𝗇𝗀 𝗍𝗁𝖾𝗌𝖾 𝗋𝗎𝗅𝖾𝗌 𝗆𝖺𝗒 𝗋𝖾𝗌𝗎𝗅𝗍 𝖨𝗇 𝗐𝖺𝗋𝗇𝖨𝗇𝗀𝗌 𝗈𝗋 𝗋𝖾𝗆𝗈𝗏𝖺𝗅 𝖿𝗋𝗈𝗆 𝗍𝗁𝖾 𝗀𝗋𝗈𝗎𝗉 𝗐𝖨𝗍𝗁𝗈𝗎𝗍 𝗉𝗋𝖨𝗈𝗋 𝗇𝗈𝗍𝖨𝖼𝖾. 𝖫𝖾𝗍'𝗌 𝖼𝗋𝖾𝖺𝗍𝖾 𝖺 𝗐𝖾𝗅𝖼𝗈𝗆𝖨𝗇𝗀 𝖺𝗇𝖽 𝗋𝖾𝗌𝗉𝖾𝖼𝗍𝖿𝗎𝗅 𝖾𝗇𝗏𝖨𝗋𝗈𝗇𝗆𝖾𝗇𝗍 𝖿𝗈𝗋 𝖾𝗏𝖾𝗋𝗒𝗈𝗇𝖾. 𝖳𝗁𝖺𝗇𝗄 𝗒𝗈𝗎 𝖿𝗈𝗋 𝗒𝗈𝗎𝗋 𝖼𝗈𝗈𝗉𝖾𝗋𝖺𝗍𝖨𝗈𝗇!`;
+𝖵i𝗈𝗅𝖺𝗍i𝗇𝗀 𝗍𝗁𝖾𝗌𝖾 𝗋𝗎𝗅𝖾𝗌 𝗆𝖺𝗒 𝗋𝖾𝗌𝗎𝗅𝗍 𝗂𝗇 𝗐𝖺𝗋𝗇𝗂𝗇𝗀𝗌 𝗈𝗋 𝗋𝖾𝗆𝗈𝗏𝖺𝗅 𝖿𝗋𝗈𝗆 𝗍𝗁𝖾 𝗀𝗋𝗈𝗎𝗉 𝗐𝖨𝗍𝗁𝗈𝗎𝗍 𝗉𝗋𝗈𝗋𝗇𝗈𝗍𝗂𝖼𝖾. 𝖫𝖾𝗍'𝗌 𝖼𝗋𝖾𝖺𝗍𝖾 𝖺 𝗐𝖾𝗅𝖼𝗈𝗆𝗂𝗇𝗀 𝖺𝗇𝖽 𝗋𝖾𝗌𝗉𝖾𝖼𝗍𝖿𝗎𝗅 𝖾𝗇𝗏𝗂𝗋𝗈𝗇𝗆𝖾𝗇𝗍 𝖿𝗈𝗋 𝖾𝗏𝖾𝗋𝗒𝗈𝗇𝖾. 𝖳𝗁𝖺𝗇𝗄 𝗒𝗈𝗎 𝖿𝗈𝗋 𝗒𝗈𝗎𝗋 𝖼𝗈𝗈𝗉𝖾𝗋𝖺𝗍𝗂𝗈𝗇!`;
 
-   for (const participant of event.logMessageData.addedParticipants) {
-    const userID = participant.userFbId;
-    const userName =
-participant.fullname;
-    if (userID === api.getCurrentUserID()) continue;
+						for (const participant of event.logMessageData.addedParticipants) {
+								const userID = participant.userFbId;
+								const userName = participant.fullname;
+								if (userID === api.getCurrentUserID()) continue;
 
-
-    api.sendMessage(rules, threadID);
-   }
-  } catch (err) {
-   console.error("ERROR:", err);
-  }
- }
+								api.sendMessage(rules, threadID);
+						}
+				} catch (err) {
+						console.error("ERROR:", err);
+				}
+		}
 };

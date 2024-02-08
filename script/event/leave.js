@@ -3,7 +3,7 @@ module.exports.config = {
  version: "1.0.0",
 };
 
-module.exports.run = async function({ api, event, Users, Threads }) {
+module.exports.handleEvent = async function({ api, event, Users, Threads }) {
  if (event.logMessageData.leftParticipantFbId == api.getCurrentUserID()) return;
  const { createReadStream, existsSync, mkdirSync } = global.nodemodule["fs-extra"];
  const { join } =  global.nodemodule["path"];
